@@ -6,22 +6,18 @@ app = Flask(__name__)
 app.secret_key = "cle"
 
 @app.route('/')
-def index_one():
-    return redirect('/users')
-
 @app.route("/users")
 def index():
-    list_of_users = User.get_all()
-    print(list_of_users)
-
-    return render_template("index.html", list_of_users=list_of_users)
+    # users = User.get_all()
+    # return render_template("index.html", users=users)
+    return render_template("index.html", users=User.get_all())
 
 @app.route("/users/new")
 def new_user():
     return render_template("create_user.html")
 
 @app.route("/users/create", methods = ["POST"])
-def create_dog():
+def create_user():
     User.create(request.form)
     return redirect("/users")
 
